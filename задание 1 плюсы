@@ -1,0 +1,30 @@
+#include <iostream>
+#include <cmath>
+
+double f(double x1, double x2) {
+    return x1*x1 + 3*x2*x2 + cos(x1 + x2);
+}
+
+double coordinateDescent() {
+    double x1 = 0.0, x2 = 0.0, alpha = 0.01;
+    int maxIterations = 1000;
+    
+    for (int i = 0; i < maxIterations; i++) {
+        // Update x1
+        double df_dx1 = 2 * x1 - sin(x1 + x2);
+        x1 = x1 - alpha * df_dx1;
+        
+        // Update x2
+        double df_dx2 = 6 * x2 - sin(x1 + x2);
+        x2 = x2 - alpha * df_dx2;
+    }
+    
+    return f(x1, x2);
+}
+
+int main() {
+    double optimum = coordinateDescent();
+    std::cout << "Optimum value of f(x) is: " << optimum << std::endl;
+    
+    return 0;
+}
